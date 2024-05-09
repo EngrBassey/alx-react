@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "//engrbassey.github.io/alx-react/static/css/main.7e48e469.css",
+    "main.js": "//engrbassey.github.io/alx-react/static/js/main.1e2b2f76.js",
+    "static/js/453.9d014867.chunk.js": "//engrbassey.github.io/alx-react/static/js/453.9d014867.chunk.js",
+    "static/media/holberton-logo.jpg": "//engrbassey.github.io/alx-react/static/media/holberton-logo.24bab5d633e36ca8d17e.jpg",
+    "index.html": "//engrbassey.github.io/alx-react/index.html",
+    "main.7e48e469.css.map": "//engrbassey.github.io/alx-react/static/css/main.7e48e469.css.map",
+    "main.1e2b2f76.js.map": "//engrbassey.github.io/alx-react/static/js/main.1e2b2f76.js.map",
+    "453.9d014867.chunk.js.map": "//engrbassey.github.io/alx-react/static/js/453.9d014867.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.7e48e469.css",
+    "static/js/main.1e2b2f76.js"
+  ]
+}
