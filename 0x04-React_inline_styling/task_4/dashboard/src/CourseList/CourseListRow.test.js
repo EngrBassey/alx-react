@@ -1,61 +1,34 @@
-import { shallow } from 'enzyme';
-import { StyleSheetTestUtils } from 'aphrodite';
-import React from 'react';
-import CourseListRow from './CourseListRow';
+import React from "react";
+import CourseListRow from "./CourseListRow";
+import { shallow } from "enzyme";
+import { StyleSheetTestUtils } from "aphrodite";
 
+beforeEach(() => {
+  StyleSheetTestUtils.suppressStyleInjection();
+});
+afterEach(() => {
+  StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
+});
 
-// shallow render CourseListRow component
-describe('<CourseListRow />', () => {
-	beforeEach(() => {
-		StyleSheetTestUtils.suppressStyleInjection();
-	});
+describe("Course List Row component test", () => {
+  it("should render without crashing", () => {
+    const wrapper = shallow(<CourseListRow textFirstCell="test" />);
 
-	it(`When isHeader is true, renders on cell with colspan=2
-	when textSecondCell does not exist`, () => {
-		const wrapper = shallow(<CourseListRow isHeader={true} textFirstCell="test" />);
-		expect(wrapper.find('th').exists()).toBe(true);
-	})
+    expect(wrapper.exists()).toBe(true);
+  });
 
-	it(`When isHeader is true, renders two cells when textSecondCell is present`, () => {
-		const wrapper = shallow(<CourseListRow isHeader={true} textFirstCell="test" textSecondCell="test2" />);
-		expect(wrapper.find('th').length).toBe(2);
-	})
+  it("should render one cell with colspan = 2 when textSecondCell null", () => {
+    const wrapper = shallow(<CourseListRow isHeader={true} textFirstCell="test" textSecondCell={null} />);
 
-	it(`When isHeader is false, renders two td elements within a tr element`, () => {
-		const wrapper = shallow(<CourseListRow isHeader={false} textFirstCell="test" textSecondCell="test2" />);
-		expect(wrapper.find('tr').length).toBe(1);
-		expect(wrapper.find('td').length).toBe(2);
-	})
-})
+    expect(wrapper.find("tr").children()).toHaveLength(1);
+    expect(wrapper.find("tr").childAt(0).html()).toEqual('<th colSpan="2">test</th>');
+  });
 
-// describe case for background_color
-describe('<CourseListRow />', () => {
-	beforeEach(() => {
-		StyleSheetTestUtils.suppressStyleInjection();
-	});
+  it("should render two cells when textSecondCell not null", () => {
+    const wrapper = shallow(<CourseListRow isHeader={false} textFirstCell="test" textSecondCell="test" />);
 
-	const row_background_color = { backgroundColor: '#f5f5f5ab' };
-	const header_row_background_color = { backgroundColor: '#deb5b545' };
-
-	// test cases for ths
-	it(`When isHeader is true and textSecondCell does not exist, check for correct background color`, () => {
-		const wrapper = shallow(<CourseListRow isHeader={true} textFirstCell="test" />);
-		expect(wrapper.find('tr').props().style).toEqual(header_row_background_color);
-	})
-
-	it(`When isHeader is true and textSecondcell DOES exist, check for correct background color`, () => {
-		const wrapper = shallow(<CourseListRow isHeader={true} textFirstCell="test" textSecondCell="test2" />);
-		expect(wrapper.find('tr').props().style).toEqual(header_row_background_color);
-	})
-
-	// test cases for tds
-	it(`When isHeader is false and textSecondCell does not exist, check for correct background color`, () => {
-		const wrapper = shallow(<CourseListRow isHeader={false} textFirstCell="test" />);
-		expect(wrapper.find('tr').props().style).toEqual(row_background_color);
-	})
-
-	it(`When isHeader is false and textSecondcell DOES exist, check for correct background color`, () => {
-		const wrapper = shallow(<CourseListRow isHeader={false} textFirstCell="test" textSecondCell="test2" />);
-		expect(wrapper.find('tr').props().style).toEqual(row_background_color);
-	})
-})
+    expect(wrapper.find("tr").children()).toHaveLength(2);
+    expect(wrapper.find("tr").childAt(0).html()).toEqual("<td>test</td>");
+    expect(wrapper.find("tr").childAt(1).html()).toEqual("<td>test</td>");
+  });
+});
